@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ftp="http://www.mulesoft.org/schema/mule/ftp"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/current/mule-ftp.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="289eebfd-6abf-4054-a7f6-3b3ef5b6aabc" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="hello-mule4Flow" doc:id="a3d8b0fa-1204-4bd3-a287-f104938e9199" >
+		<http:listener doc:name="Listener" doc:id="94e4af98-e822-46dd-b944-147702a2ba6d" config-ref="HTTP_Listener_config" path="/hello"/>
+		<logger level="INFO" doc:name="Logger" doc:id="adc3e748-d62a-4a91-9a45-39a1194a8034" message="#[ {thePayload: payload }]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="201b188c-1e9f-48e1-b42c-18cc49bdbca7" message='#["The payload message is : $((payload as Object).message)"]'/>
+		<set-payload value='#["Hello Mule 4! The date and time is: " ++ now()]' doc:name="Set Payload" doc:id="40d767ce-2b9a-4c7d-9e72-e49030ccc34f" />
+	</flow>
+</mule>
